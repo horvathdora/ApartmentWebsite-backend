@@ -20,32 +20,7 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
-    @GetMapping(path = "", produces = "application/json")
-    public List<User> getAllUsers(){
-        return userService.selectAllUsers();
-    }
-
-    @PostMapping
-    public void addUser(@RequestBody User user){
-        userService.addUser(user);
-    }
-
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable("id") Long id){
-        return userService.getUserById(id)
-                .orElse(null);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable("id") Long id){
-        userService.deleteUserById(id);
-    }
-
-    @PutMapping()
-    public void updateUser(@RequestBody User user){
-        userService.updateUser(user);
-    }
+    
 
     @PostMapping("/{id}/reservation/")
     public User addReservation(@PathVariable("id") Long user_id, @RequestBody Reservation reservation, @RequestBody Long apartment_id){

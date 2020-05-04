@@ -17,22 +17,27 @@ public class User {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column
     private Long id;
 
     @NotBlank
     @Size(min=2, max = 20)
+    @Column
     private String firstName;
 
     @NotBlank
     @Size(min=2, max = 20)
+    @Column
     private String lastName;
 
     @NotBlank
     //@Size(min=3, max = 30)
+    @Column
     private String password;
 
     @NotBlank
     @Size(min = 4, max = 30)
+    @Column
     private String username;
 
     @NaturalId

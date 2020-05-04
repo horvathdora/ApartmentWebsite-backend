@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -36,8 +35,13 @@ public class ApartmentService {
     public void deleteApartmentById(Long id){ apartmentRepository.deleteById(id);
     }
 
-    public Apartment updateApartmentById(Apartment apartment){
-        Apartment updatedApartment = apartmentRepository.save(apartment);
+    public Apartment updateApartmentById(Apartment apartment, Long id){
+        //Apartment updatedApartment = apartmentRepository.save(apartment);
+        Apartment updatedApartment = apartmentRepository.findApartmentById(id);
+        updatedApartment.setNum_of_people(apartment.getNum_of_people());
+        updatedApartment.setPrice(apartment.getPrice());
+        updatedApartment.setRoom_description(apartment.getRoom_description());
+        apartmentRepository.save(updatedApartment);
         return updatedApartment;
     }
 

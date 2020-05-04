@@ -61,7 +61,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterForm registerRequest) {
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
-            return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
+            return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!" ),
                     HttpStatus.BAD_REQUEST);
         }
 

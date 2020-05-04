@@ -46,8 +46,14 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User updateUser(User user){
-        return userRepository.save(user);
+    public User updateUser(User user, Long id){
+        User updatedUser = userRepository.findUserById(id);
+        updatedUser.setFirstName(user.getFirstName());
+        updatedUser.setLastName(user.getLastName());
+        updatedUser.setEmail(user.getEmail());
+        updatedUser.setUsername(user.getUsername());
+        userRepository.save(updatedUser);
+        return updatedUser;
     }
 
     //Foglalás hozzáadása

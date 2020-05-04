@@ -1,15 +1,13 @@
 package com.reservation.api;
-
 import com.reservation.model.Apartment;
 import com.reservation.service.ApartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/api/admin/apartments")
 public class ApartmentController {
@@ -23,6 +21,7 @@ public class ApartmentController {
 
     // Get all apartments
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<Apartment>> selectAllApartments(){
         List<Apartment> list = apartmentService.selectAllApartments();
         return ResponseEntity.ok().body(list);
@@ -45,7 +44,7 @@ public class ApartmentController {
     // Update apartment
     @PutMapping("/{id}")
     public ResponseEntity<?> updateApartmentById(@PathVariable("id") Long id, @RequestBody Apartment apartment){
-        Apartment result = apartmentService.updateApartmentById(apartment);
+        Apartment result = apartmentService.updateApartmentById(apartment, id);
         return ResponseEntity.ok().body(result);
     }
 

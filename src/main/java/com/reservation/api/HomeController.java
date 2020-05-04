@@ -1,11 +1,9 @@
 package com.reservation.api;
 
-import com.reservation.model.User;
 import com.reservation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/home")

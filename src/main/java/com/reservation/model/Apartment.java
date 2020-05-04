@@ -10,7 +10,7 @@ import java.util.Objects;
 @Table(name = "apartment")
 public class Apartment implements Comparable<Apartment>{
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -47,15 +47,15 @@ public class Apartment implements Comparable<Apartment>{
         this.room_description = _room_description;
     }
 
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 
-    Integer getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    Integer getNum_of_people() {
+    public Integer getNum_of_people() {
         return num_of_people;
     }
 
