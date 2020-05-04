@@ -3,6 +3,7 @@ package com.reservation.api;
 import com.reservation.model.Reservation;
 import com.reservation.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/api/admin/reservations")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class ReservationController {
 
     private final ReservationService reservationService;

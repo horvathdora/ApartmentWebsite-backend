@@ -10,6 +10,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/api/admin/apartments")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class ApartmentController {
 
     private final ApartmentService apartmentService;
