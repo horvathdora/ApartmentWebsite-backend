@@ -25,7 +25,7 @@ import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
