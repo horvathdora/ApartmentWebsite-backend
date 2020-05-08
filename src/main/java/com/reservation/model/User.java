@@ -1,5 +1,6 @@
 package com.reservation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -49,6 +50,7 @@ public class User {
     //@Column
     //private Boolean admin;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Reservation> reservations = new ArrayList<>();
 

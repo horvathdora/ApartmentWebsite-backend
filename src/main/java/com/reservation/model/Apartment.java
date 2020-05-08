@@ -1,5 +1,7 @@
 package com.reservation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class Apartment implements Comparable<Apartment>{
     @Column
     private String room_description;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "apartment")
     private List<Reservation> reservations = new ArrayList<>();
 
@@ -84,6 +87,7 @@ public class Apartment implements Comparable<Apartment>{
         return this.equals(o) ? 0 : 1;
     }
 
+
     public List<Reservation> getReservations() {
         return reservations;
     }
@@ -91,4 +95,5 @@ public class Apartment implements Comparable<Apartment>{
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
     }
+
 }

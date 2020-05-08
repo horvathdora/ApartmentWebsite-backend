@@ -11,11 +11,12 @@ public class Reservation {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne()
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name="apartment_id", nullable=false)
     private Apartment apartment;
 
@@ -101,5 +102,7 @@ public class Reservation {
 
     public void setApartment(Apartment apartment) {
         this.apartment = apartment;
+        this.num_of_people = apartment.getNum_of_people();
+        this.price = apartment.getPrice();
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,8 +23,8 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
-    public Optional<Reservation> getReservationById(Long id){
-        return reservationRepository.findById(id);
+    public Reservation getReservationById(Long id){
+        return reservationRepository.findReservationById(id);
     }
 
     public Reservation addReservation(Reservation reservation){

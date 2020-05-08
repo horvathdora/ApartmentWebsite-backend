@@ -3,11 +3,10 @@ package com.reservation.api;
 import com.reservation.model.Reservation;
 import com.reservation.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
@@ -22,29 +21,36 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
+    //Ez nem kell
     @PostMapping
-    public void addReservation(@RequestBody Reservation reservation) {
-        reservationService.addReservation(reservation);
+    public ResponseEntity<?> addReservation(@RequestBody Reservation reservation) {
+        Reservation savedReservation = reservationService.addReservation(reservation);
+        return ResponseEntity.ok().body(savedReservation);
     }
 
     @GetMapping
-    public List<Reservation> selectAllReservations() {
-        return reservationService.selectAllReservations();
+    public ResponseEntity<List<Reservation>> selectAllReservations() {
+        List<Reservation> resultList = reservationService.selectAllReservations();
+        return ResponseEntity.ok().body(resultList);
     }
 
     @GetMapping("/{id}")
-    public Optional<Reservation> getReservationById(@PathVariable("id") Long id) {
-        return reservationService.getReservationById(id);
+    public ResponseEntity<Reservation> getReservationById(@PathVariable("id") Long id) {
+        Reservation result = reservationService.getReservationById(id);
+        return ResponseEntity.ok().body(result);
     }
 
+    // Ez nem fog kelleni
     @PutMapping()
-    public void updateReservationById(@RequestBody Reservation reservation) {
-        reservationService.updateReservationById(reservation);
+    public ResponseEntity<?> updateReservationById(@RequestBody Reservation reservation) {
+        Reservation result = reservationService.updateReservationById(reservation);
+        return ResponseEntity.ok().body(result);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteReservationById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deleteReservationById(@PathVariable("id") Long id) {
         reservationService.deleteReservationById(id);
+        return ResponseEntity.ok().body("Reservation deleted");
     }
 
 }

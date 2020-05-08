@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -63,9 +65,12 @@ public class UserService {
         optionalApartment.ifPresent(reservation::setApartment);
         if(optionalUser.isPresent()){
             optionalUser.get().addReservation(reservation);
+            //reservation.setUser(optionalUser.get());
+            reservation.setNum_of_people(optionalApartment.get().getNum_of_people());
+            reservation.setPrice(optionalApartment.get().getPrice());
             reservation.setUser(optionalUser.get());
             reservationRepository.save(reservation);
-            return userRepository.save(optionalUser.get());
+            return optionalUser.get();
         }
         return null;
     }
@@ -96,20 +101,29 @@ public class UserService {
             if(optionalReservation.isPresent()){
                 optionalUser.get().removeReservation(optionalReservation.get());
                 reservationRepository.deleteById(reservation_id);
-                userRepository.save(optionalUser.get());
+                //erre nicns szükség
+                //userRepository.(optionalUser.get());
                 return optionalUser.map(User::getReservations).orElse(null);
             }
         }
         return null;
     }
 
-
-    // szerintem azokat listázza amik pont beleesnek ebbe az intervallumba :(
     //nincs transactional, read only fg
     //elérhető apartmanok listázása dátum alapján
     @Transactional(readOnly = true)
-    public List<Apartment> getApartmentsByDate(Date begin_date, Date end_date){
-       return reservationRepository.findAll()
+    public List<Apartment> getApartmentsByDate(String beginDate, String endDate) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        Date begin_date = formatter.parse(beginDate);
+        Date end_date = formatter.parse(endDate);
+
+        //System.out.println(beginDate);
+        System.out.println("begin : " + begin_date.getTime());
+        System.out.println("end : " + end_date.getTime());
+
+        System.out.println("diff: " + (end_date.getTime() - begin_date.getTime()));
+
+        List<Apartment> taken = reservationRepository.findAll()
                .stream()
                .filter(r ->
                        (r.getBegin_date().getTime() <= begin_date.getTime()) && (r.getEnd_date().getTime() <= end_date.getTime()) && (begin_date.getTime() < r.getEnd_date().getTime()) ||
@@ -120,6 +134,9 @@ public class UserService {
                .distinct()
                .collect(Collectors.toList());
 
+        List<Apartment> all = apartmentRepository.findAll();
+        all.removeAll(taken);
+        return all;
     }
 
 }
