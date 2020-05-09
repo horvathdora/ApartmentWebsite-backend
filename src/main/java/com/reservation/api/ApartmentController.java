@@ -30,7 +30,7 @@ public class ApartmentController {
 
     // Add new apartment
     @PostMapping
-    public ResponseEntity<?> addApartment(@RequestBody Apartment apartment){
+    public ResponseEntity<Apartment> addApartment(@RequestBody Apartment apartment){
         Apartment savedApartment = apartmentService.addApartment(apartment);
         return ResponseEntity.ok().body(savedApartment);
     }
@@ -44,7 +44,7 @@ public class ApartmentController {
 
     // Update apartment
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateApartmentById(@PathVariable("id") Long id, @RequestBody Apartment apartment){
+    public ResponseEntity<Apartment> updateApartmentById(@PathVariable("id") Long id, @RequestBody Apartment apartment){
         Apartment result = apartmentService.updateApartmentById(apartment, id);
         return ResponseEntity.ok().body(result);
     }

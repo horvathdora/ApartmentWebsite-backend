@@ -1,14 +1,27 @@
 package com.reservation.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "reservation")
 public class Reservation {
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", user=" + user +
+                ", apartment=" + apartment +
+                ", begin_date=" + begin_date +
+                ", end_date=" + end_date +
+                ", num_of_people=" + num_of_people +
+                ", price=" + price +
+                '}';
+    }
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column
     private Long id;
 
 
@@ -21,10 +34,10 @@ public class Reservation {
     private Apartment apartment;
 
     @Column
-    private Date begin_date;
+    private Timestamp begin_date;
 
     @Column
-    private Date end_date;
+    private Timestamp end_date;
 
     @Column
     private Integer num_of_people;
@@ -35,7 +48,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(Date begin_date, Date end_date, Apartment _apartment) {
+    public Reservation(Timestamp begin_date, Timestamp end_date, Apartment _apartment) {
         this.begin_date = begin_date;
         this.end_date = end_date;
         this.apartment = _apartment;
@@ -43,15 +56,24 @@ public class Reservation {
         price = _apartment.getPrice();
     }
 
+    public Reservation(Reservation reservation){
+        this.begin_date = reservation.getBegin_date();
+        this.end_date = reservation.getEnd_date();
+        this.apartment = reservation.getApartment();
+        num_of_people = reservation.getNum_of_people();
+        price = reservation.getPrice();
+        this.user = reservation.user;
+    }
+
     public Long getId() {
         return id;
     }
 
-    public Date getBegin_date() {
+    public Timestamp getBegin_date() {
         return begin_date;
     }
 
-    public Date getEnd_date() {
+    public Timestamp getEnd_date() {
         return end_date;
     }
 
@@ -67,11 +89,11 @@ public class Reservation {
         this.id = id;
     }
 
-    public void setBegin_date(Date begin_date) {
+    public void setBegin_date(Timestamp begin_date) {
         this.begin_date = begin_date;
     }
 
-    public void setEnd_date(Date end_date) {
+    public void setEnd_date(Timestamp end_date) {
         this.end_date = end_date;
     }
 

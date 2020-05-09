@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,10 +60,17 @@ public class UserService {
     }
 
     //Foglalás hozzáadása
-    public User addReservationByUserId(Long user_id, Reservation reservation, Long apartment_id){
+    public User addReservationByUserId(Long user_id, String beginDate, String endDate , Long apartment_id) throws ParseException {
         Optional<User> optionalUser = userRepository.findById(user_id);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        long begin_date = formatter.parse(beginDate).getTime();
+        long end_date = formatter.parse(endDate).getTime();
+        Reservation reservation = new Reservation();
+        reservation.setBegin_date(new Timestamp(begin_date));
+        reservation.setEnd_date(new Timestamp(end_date));
         Optional<Apartment> optionalApartment = apartmentRepository.findById(apartment_id);
         optionalApartment.ifPresent(reservation::setApartment);
+        System.out.println("ide is eljut - service");
         if(optionalUser.isPresent()){
             optionalUser.get().addReservation(reservation);
             //reservation.setUser(optionalUser.get());
@@ -94,7 +102,7 @@ public class UserService {
     }
 
     //felhasználó által foglalás törlése
-    public List<Reservation> deleteReservationById(Long user_id, Long reservation_id){
+   /* public List<Reservation> deleteReservationById(Long user_id, Long reservation_id){
         Optional<User> optionalUser = userRepository.findById(user_id);
         if(optionalUser.isPresent()){
             Optional<Reservation> optionalReservation = reservationRepository.findById(reservation_id);
@@ -107,21 +115,19 @@ public class UserService {
             }
         }
         return null;
+    }*/
+
+    public Optional<User> findByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 
     //nincs transactional, read only fg
     //elérhető apartmanok listázása dátum alapján
     @Transactional(readOnly = true)
     public List<Apartment> getApartmentsByDate(String beginDate, String endDate) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date begin_date = formatter.parse(beginDate);
         Date end_date = formatter.parse(endDate);
-
-        //System.out.println(beginDate);
-        System.out.println("begin : " + begin_date.getTime());
-        System.out.println("end : " + end_date.getTime());
-
-        System.out.println("diff: " + (end_date.getTime() - begin_date.getTime()));
 
         List<Apartment> taken = reservationRepository.findAll()
                .stream()

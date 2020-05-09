@@ -51,7 +51,7 @@ public class User {
     //private Boolean admin;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
     private List<Reservation> reservations = new ArrayList<>();
 
 

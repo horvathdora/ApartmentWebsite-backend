@@ -9,6 +9,7 @@ import com.reservation.model.RoleName;
 import com.reservation.model.User;
 import com.reservation.repository.RoleRepository;
 import com.reservation.repository.UserRepository;
+import com.reservation.security.MyUserDetails;
 import com.reservation.security.jwt.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,9 +54,9 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generateJwtToken(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
 
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities(), userDetails.getId()));
     }
 
     @PostMapping("/register")

@@ -25,7 +25,7 @@ public class Apartment implements Comparable<Apartment>{
     private String room_description;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "apartment")
+    @OneToMany(cascade = CascadeType.REMOVE , mappedBy = "apartment")
     private List<Reservation> reservations = new ArrayList<>();
 
     @Override

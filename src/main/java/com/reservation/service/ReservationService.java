@@ -28,7 +28,7 @@ public class ReservationService {
     }
 
     public Reservation addReservation(Reservation reservation){
-         return reservationRepository.save(reservation);
+         return reservationRepository.save(new Reservation(reservation) );
     }
 
     public void deleteReservationById(Long id){
