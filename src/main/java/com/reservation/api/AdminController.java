@@ -24,10 +24,6 @@ public class AdminController {
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> list = userService.selectAllUsers();
-        for (User a: list) {
-            System.out.println(a);
-        }
-        System.out.println();
         return ResponseEntity.ok().body(list);
     }
 

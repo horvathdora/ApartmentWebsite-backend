@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackageClasses = UserRepository.class)
 public class ApartmentReservationApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ApartmentReservationApplication.class, args);
+	public static void main(String[] argv) {
+		SpringApplication.run(ApartmentReservationApplication.class, argv);
 	}
 
 }
