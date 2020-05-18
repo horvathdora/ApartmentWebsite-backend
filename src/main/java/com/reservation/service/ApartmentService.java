@@ -24,8 +24,7 @@ public class ApartmentService {
     }
 
     public Apartment addApartment(Apartment apartment){
-        Apartment savedApartment = apartmentRepository.save(apartment);
-        return savedApartment;
+        return apartmentRepository.save(apartment);
     }
 
     public Apartment getApartmentById(Long id){
