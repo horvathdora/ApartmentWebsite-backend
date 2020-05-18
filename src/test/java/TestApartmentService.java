@@ -1,31 +1,19 @@
-package com.reservation;
-
 import com.reservation.model.Apartment;
 import com.reservation.repository.ApartmentRepository;
 import com.reservation.service.ApartmentService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
-@SpringBootTest
-public class ApartmentServiceTest {
+@RunWith(JUnit4.class)
+public class TestApartmentService {
 
     //it will inject the mock with @Mock annotation
     @InjectMocks
@@ -43,7 +31,7 @@ public class ApartmentServiceTest {
     }
 
     @Test
-    public void testAddApartment(){
+    public void Test_AddApartment(){
         Apartment addApartment = new Apartment();
         addApartment.setRoom_description("ne legyél null");
         addApartment.setPrice(9400);
