@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class ApartmentReservationApplication {
 
 	public static void main(String[] argv) {
-		SpringApplication.run(ApartmentReservationApplication.class, argv);
+		SpringApplication.run(ApartmentReservationApplication.class);
 	}
 
 }
