@@ -49,22 +49,12 @@ public class UserController {
     @PostMapping("/{username}/{begin_date}/{end_date}")
     public ResponseEntity<User> addReservation(@PathVariable("username") String username, @RequestBody Apartment apartment,  @PathVariable("begin_date") String begin_date, @PathVariable("end_date")  String end_date) throws ParseException {
         Optional<User> selectedUser = userService.findByUsername(username);
-        User result = userService.addReservationByUserId(selectedUser.get().getId(),begin_date, end_date, apartment.getId());
+        User result = new User();
+        if(selectedUser.isPresent()) {
+             result = userService.addReservationByUserId(selectedUser.get().getId(), begin_date, end_date, apartment.getId());
+        }
         return ResponseEntity.ok().body(result);
     }
-
-    /*
-    @PostMapping("/{username}")
-    public ResponseEntity<Reservation> test(@PathVariable("username") String username, @RequestBody Reservation reservation){
-        System.out.println("ide eljut");
-        Optional<User> findUser = userService.findByUsername(username);
-        if(findUser.isPresent()){
-            reservation.setUser(findUser.get());
-        }
-        System.out.println(reservation);
-        Reservation result = reservationService.addReservation(reservation);
-        return ResponseEntity.ok().body(result);
-    }*/
 
     // Felhasznához tartozó foglalások
     @GetMapping("/{username}/reservations")
