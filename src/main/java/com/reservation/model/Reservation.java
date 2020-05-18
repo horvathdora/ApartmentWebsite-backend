@@ -6,24 +6,11 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "reservation")
 public class Reservation {
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                ", user=" + user +
-                ", apartment=" + apartment +
-                ", begin_date=" + begin_date +
-                ", end_date=" + end_date +
-                ", num_of_people=" + num_of_people +
-                ", price=" + price +
-                '}';
-    }
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column
     private Long id;
-
 
     @ManyToOne()
     @JoinColumn(name="user_id", nullable=false)
@@ -105,10 +92,19 @@ public class Reservation {
         this.price = price;
     }
 
-
-    /*public void addApartment(Apartment apartment){
-        apartments.add(apartment);
-    }*/
+    //Debug-olás céljából
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", user=" + user +
+                ", apartment=" + apartment +
+                ", begin_date=" + begin_date +
+                ", end_date=" + end_date +
+                ", num_of_people=" + num_of_people +
+                ", price=" + price +
+                '}';
+    }
 
     public User getUser() {
         return user;

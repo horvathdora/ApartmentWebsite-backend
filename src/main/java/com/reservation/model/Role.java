@@ -19,7 +19,6 @@ public class Role {
     private RoleName name;
 
     public Role(){
-
     }
 
     public Long getRoleId() {

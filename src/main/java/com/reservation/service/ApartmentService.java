@@ -36,7 +36,6 @@ public class ApartmentService {
     }
 
     public Apartment updateApartmentById(Apartment apartment, Long id){
-        //Apartment updatedApartment = apartmentRepository.save(apartment);
         Apartment updatedApartment = apartmentRepository.findApartmentById(id);
         updatedApartment.setNum_of_people(apartment.getNum_of_people());
         updatedApartment.setPrice(apartment.getPrice());

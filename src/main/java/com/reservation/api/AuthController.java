@@ -18,7 +18,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,7 +45,7 @@ public class AuthController {
     JwtProvider jwtProvider;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
+    public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -60,13 +59,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterForm registerRequest) {
-        if (userRepository.existsByUsername(registerRequest.getUsername())) {
+    public ResponseEntity<ResponseMessage> registerUser(@Valid @RequestBody RegisterForm registerRequest) {
+        if (Boolean.TRUE.equals(userRepository.existsByUsername(registerRequest.getUsername()))) {
             return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!" ),
                     HttpStatus.BAD_REQUEST);
         }
 
-        if (userRepository.existsByEmail(registerRequest.getEmail())) {
+        if (Boolean.TRUE.equals(userRepository.existsByEmail(registerRequest.getEmail()))) {
             return new ResponseEntity<>(new ResponseMessage("Fail -> Email is already in use!"),
                     HttpStatus.BAD_REQUEST);
         }

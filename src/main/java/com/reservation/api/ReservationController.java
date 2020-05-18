@@ -21,9 +21,9 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    //Ez nem kell
+    // Ezt nem használom fel az alkalmazásban
     @PostMapping
-    public ResponseEntity<?> addReservation(@RequestBody Reservation reservation) {
+    public ResponseEntity<Reservation> addReservation(@RequestBody Reservation reservation) {
         Reservation savedReservation = reservationService.addReservation(reservation);
         return ResponseEntity.ok().body(savedReservation);
     }
@@ -40,15 +40,15 @@ public class ReservationController {
         return ResponseEntity.ok().body(result);
     }
 
-    // Ez nem fog kelleni
+    // Ezt nem használom fel az alkalmazásban
     @PutMapping()
-    public ResponseEntity<?> updateReservationById(@RequestBody Reservation reservation) {
+    public ResponseEntity<Reservation> updateReservationById(@RequestBody Reservation reservation) {
         Reservation result = reservationService.updateReservationById(reservation);
         return ResponseEntity.ok().body(result);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteReservationById(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteReservationById(@PathVariable("id") Long id) {
         reservationService.deleteReservationById(id);
         return ResponseEntity.ok().body("Reservation deleted");
     }

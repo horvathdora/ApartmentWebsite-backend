@@ -69,13 +69,12 @@ public class UserService {
         reservation.setBegin_date(new Timestamp(begin_date));
         reservation.setEnd_date(new Timestamp(end_date));
         Optional<Apartment> optionalApartment = apartmentRepository.findById(apartment_id);
-        optionalApartment.ifPresent(reservation::setApartment);
-        System.out.println("ide is eljut - service");
         if(optionalUser.isPresent()){
             optionalUser.get().addReservation(reservation);
-            //reservation.setUser(optionalUser.get());
-            reservation.setNum_of_people(optionalApartment.get().getNum_of_people());
-            reservation.setPrice(optionalApartment.get().getPrice());
+            if (optionalApartment.isPresent()) {
+                reservation.setNum_of_people(optionalApartment.get().getNum_of_people());
+                reservation.setPrice(optionalApartment.get().getPrice());
+            }
             reservation.setUser(optionalUser.get());
             reservationRepository.save(reservation);
             return optionalUser.get();
@@ -83,45 +82,16 @@ public class UserService {
         return null;
     }
 
-    /*public Reservation addApartmentById(Long reservation_id, Long apartment_id){
-        Optional<Reservation> optionalReservation = reservationRepository.findById(reservation_id);
-        if(optionalReservation.isPresent()){
-            Optional<Apartment> optionalApartment = apartmentService.getApartmentById(apartment_id);
-            if (optionalApartment.isPresent()){
-                optionalReservation.get().addApartment(optionalApartment.get());
-                return optionalReservation.get();
-            }
-        }
-        return null;
-    }*/
-
     //felhasználó általi foglalások listázása
     public List<Reservation> getReservationsByUserId(Long user_id){
         Optional<User> optionalUser = userRepository.findById(user_id);
         return optionalUser.map(User::getReservations).orElse(null);
     }
 
-    //felhasználó által foglalás törlése
-   /* public List<Reservation> deleteReservationById(Long user_id, Long reservation_id){
-        Optional<User> optionalUser = userRepository.findById(user_id);
-        if(optionalUser.isPresent()){
-            Optional<Reservation> optionalReservation = reservationRepository.findById(reservation_id);
-            if(optionalReservation.isPresent()){
-                optionalUser.get().removeReservation(optionalReservation.get());
-                reservationRepository.deleteById(reservation_id);
-                //erre nicns szükség
-                //userRepository.(optionalUser.get());
-                return optionalUser.map(User::getReservations).orElse(null);
-            }
-        }
-        return null;
-    }*/
-
     public Optional<User> findByUsername(String username){
         return userRepository.findByUsername(username);
     }
 
-    //nincs transactional, read only fg
     //elérhető apartmanok listázása dátum alapján
     @Transactional(readOnly = true)
     public List<Apartment> getApartmentsByDate(String beginDate, String endDate) throws ParseException {

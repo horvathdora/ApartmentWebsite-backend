@@ -47,9 +47,6 @@ public class User {
     @Email
     private String email;
 
-    //@Column
-    //private Boolean admin;
-
     @JsonIgnore
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
     private List<Reservation> reservations = new ArrayList<>();
@@ -109,8 +106,9 @@ public class User {
     }
 
     public void addReservation(Reservation reservation){
-        if(reservation != null)
-        this.reservations.add(reservation);
+        if(reservation != null) {
+            this.reservations.add(reservation);
+        }
     }
 
     public void removeReservation(Reservation reservation){

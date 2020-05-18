@@ -28,7 +28,7 @@ public class AdminController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addUser(@RequestBody User user){
+    public ResponseEntity<User> addUser(@RequestBody User user){
         User savedUser = userService.addUser(user);
         return  ResponseEntity.ok().body(savedUser);
     }
@@ -40,13 +40,13 @@ public class AdminController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable("id") Long id){
+    public ResponseEntity<String> deleteUser(@PathVariable("id") Long id){
         userService.deleteUserById(id);
         return ResponseEntity.ok().body("User deleted successfully");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable("id") Long id){
+    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("id") Long id){
         User result = userService.updateUser(user, id);
         return ResponseEntity.ok().body(result);
     }
