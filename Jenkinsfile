@@ -3,14 +3,13 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        cleanWs(cleanWhenSuccess: true)
-        sh 'clean compile'
+        sh 'mvn clean compile'
       }
     }
 
     stage('Test') {
       steps {
-        sh 'test'
+        sh 'mvn test'
       }
     }
 
