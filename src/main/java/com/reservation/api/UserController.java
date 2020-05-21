@@ -56,6 +56,18 @@ public class UserController {
         return ResponseEntity.ok().body(result);
     }
 
+    @PostMapping("/{username}")
+    public ResponseEntity<Reservation> test(@PathVariable("username") String username, @RequestBody Reservation reservation){
+        System.out.println("ide eljut");
+        Optional<User> findUser = userService.findByUsername(username);
+        if(findUser.isPresent()){
+            reservation.setUser(findUser.get());
+        }
+        System.out.println(reservation);
+        Reservation result = reservationService.addReservation(reservation);
+        return ResponseEntity.ok().body(result);
+    }
+
     // Felhasznához tartozó foglalások
     @GetMapping("/{username}/reservations")
     public ResponseEntity<List<Reservation>> getReservations(@PathVariable("username") String username){
