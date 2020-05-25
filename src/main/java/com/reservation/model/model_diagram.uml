@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="144.49999999999997" y="521.0">com.reservation.model.Reservation</node>
+    <node x="310.0" y="0.0">com.reservation.model.RoleName</node>
+    <node x="286.5" y="123.0">com.reservation.model.Role</node>
+    <node x="249.99999999999997" y="246.0">com.reservation.model.User</node>
+    <node x="0.0" y="279.0">com.reservation.model.Apartment</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.reservation.model.User" target="com.reservation.model.Role">
+      <point x="-57.49999999999997" y="-102.5" />
+      <point x="307.5" y="221.0" />
+      <point x="325.75" y="221.0" />
+      <point x="-39.25" y="36.5" />
+    </edge>
+    <edge source="com.reservation.model.Apartment" target="com.reservation.model.Reservation">
+      <point x="86.25" y="69.5" />
+      <point x="201.25" y="471.0" />
+      <point x="228.06249999999997" y="471.0" />
+      <point x="-11.9375" y="-91.5" />
+    </edge>
+    <edge source="com.reservation.model.Role" target="com.reservation.model.RoleName">
+      <point x="39.25" y="-36.5" />
+      <point x="404.25" y="98.0" />
+      <point x="392.5" y="98.0" />
+      <point x="27.5" y="36.5" />
+    </edge>
+    <edge source="com.reservation.model.Reservation" target="com.reservation.model.User">
+      <point x="35.8125" y="-91.5" />
+      <point x="275.8125" y="481.0" />
+      <point x="336.25" y="481.0" />
+      <point x="-28.75" y="102.5" />
+    </edge>
+    <edge source="com.reservation.model.Reservation" target="com.reservation.model.Apartment">
+      <point x="-83.5625" y="-91.5" />
+      <point x="156.43749999999997" y="501.0" />
+      <point x="28.75" y="501.0" />
+      <point x="-86.25" y="69.5" />
+    </edge>
+    <edge source="com.reservation.model.User" target="com.reservation.model.Reservation">
+      <point x="28.75000000000003" y="102.5" />
+      <point x="393.75" y="491.0" />
+      <point x="299.6875" y="491.0" />
+      <point x="59.6875" y="-91.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="251.36363636363635" />
+  <SelectedNodes>
+    <node>com.reservation.model.User</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
